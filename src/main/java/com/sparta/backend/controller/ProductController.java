@@ -6,6 +6,7 @@ import com.sparta.backend.model.Product;
 import com.sparta.backend.repository.ProductRepository;
 import com.sparta.backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +18,12 @@ import java.util.List;
 @RestController
 public class ProductController {
     private final ProductService productService;
-    private final ProductRepository productRepository;
 
-
+    @GetMapping("/")
+    public String list(Model model){
+        List<ProductRequestDto> productDtoList = productService.getProductList();
+        model.addAttribute("productList", productDtoList);
+        return "index";
+    }
 
 }
