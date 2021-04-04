@@ -22,7 +22,7 @@ public class Product extends Timestamped{
     private String name;
 
     @Column(nullable = false)
-    private Long price;
+    private String price;
 
 //    @Column(nullable = false)
 //    private String username;
@@ -45,7 +45,7 @@ public class Product extends Timestamped{
 //    @Column(nullable = false)
 //    private String keyword;
     @Builder
-    public Product(String name, Long price, String product_image){
+    public Product(String name, String price, String product_image){
         this.name = name;
         this.price=price;
         this.product_image=product_image;

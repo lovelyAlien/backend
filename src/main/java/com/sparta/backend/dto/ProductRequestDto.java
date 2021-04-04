@@ -14,7 +14,7 @@ public class ProductRequestDto {
     private String name;
 
 
-    private Long price;
+    private String price;
 
 
 //    private String username;
@@ -42,7 +42,7 @@ public class ProductRequestDto {
     private LocalDateTime modifiedAt;
 
     @Builder
-    public ProductRequestDto(Long pid, String name, Long price, String product_image, LocalDateTime createdAt, LocalDateTime modifiedAt){
+    public ProductRequestDto(Long pid, String name, String price, String product_image, LocalDateTime createdAt, LocalDateTime modifiedAt){
         this.pid = pid;
         this.name = name;
         this.price=price;
