@@ -1,6 +1,7 @@
 package com.sparta.backend.controller;
 import com.sparta.backend.model.Product;
 import com.sparta.backend.repository.ProductRepository;
+import com.sparta.backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +13,12 @@ import java.util.List;
 public class ProductRestController {
 
     private final ProductRepository productRepository;
-
+    private final ProductService productService;
 
 
     @GetMapping("/")
     public List<Product> getProducts() {
-        return productRepository.findAll();
+        return productRepository.findAllByOrderByModifiedAtDesc();
     }
 
 

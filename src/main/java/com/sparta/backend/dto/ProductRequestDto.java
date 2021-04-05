@@ -19,6 +19,8 @@ public class ProductRequestDto {
 
     private String user_name;
 
+    private Long update_time;
+
     private Boolean free_shipping;
 
     private String profile_image;
