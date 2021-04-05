@@ -46,6 +46,7 @@ public class Product extends Timestamped{
 //    private String keyword;
     @Builder
     public Product(String name, String price, String product_image){
+
         this.name = name;
         this.price=price;
         this.product_image=product_image;
