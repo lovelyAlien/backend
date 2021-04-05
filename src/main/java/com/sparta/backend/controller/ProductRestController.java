@@ -1,15 +1,9 @@
 package com.sparta.backend.controller;
-
-
-import com.sparta.backend.dto.ProductRequestDto;
 import com.sparta.backend.model.Product;
 import com.sparta.backend.repository.ProductRepository;
-import com.sparta.backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.List;
 
@@ -19,25 +13,17 @@ public class ProductRestController {
 
     private final ProductRepository productRepository;
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView getIndex() {
-        ModelAndView modelAndView = new ModelAndView("index");
-        return modelAndView;
-    }
 
-    @GetMapping("/api/products")
+
+    @GetMapping("/")
     public List<Product> getProducts() {
         return productRepository.findAll();
     }
 
-    @RequestMapping(value = "/detail" , method = RequestMethod.GET)
-    public ModelAndView detail() {
-        ModelAndView modelAndView = new ModelAndView("detail");
-        return modelAndView;
-    }
 
-    @GetMapping("/api/detail/{id}")
-    public Product getDetail(@PathVariable Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("null"));
+
+    @GetMapping("/api/products/{pid}")
+    public Product getDetail(@PathVariable Long pid) {
+        return productRepository.findById(pid).orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
     }
 }

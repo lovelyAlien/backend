@@ -1,11 +1,6 @@
 package com.sparta.backend.model;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import lombok.Builder;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Getter
@@ -38,6 +33,9 @@ public class Product extends Timestamped{
     private String user_name;
 
     @Column(nullable = false)
+    private Long update_time;
+
+    @Column(nullable = false)
     private Boolean free_shipping;
 
     @Column(nullable = false)
@@ -66,8 +64,6 @@ public class Product extends Timestamped{
 
     @Column(nullable = false)
     private String keyword;
-
-
 
 
 }
