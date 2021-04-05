@@ -21,28 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
-    private static String DATAS_URL="https://m.bunjang.co.kr/";
-
-    @PostConstruct
-    public void getDatas() throws IOException {
-        try{
-            Document doc = Jsoup.connect(DATAS_URL).get();
-
-            System.out.println(doc);
-
-//            Elements products = doc.select("ul.collection__products");
-//            for(Element product : products.select("li.collection__product")){
-//                String name = product.select("a.product-card__title").text();
-//                String price = product.select("span.product-card__price").text();
-//                System.out.println(name+price);
-//            }
-
-        } catch(IOException e){
-            System.out.println("목록을 찾을 수 없습니다");
-        }
-
-
-    }
 
     @Transactional
     public List<ProductRequestDto> getProductList() {
