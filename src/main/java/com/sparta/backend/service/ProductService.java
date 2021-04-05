@@ -22,24 +22,4 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    @Transactional
-    public List<ProductRequestDto> getProductList() {
-        List<Product> productList = productRepository.findAll();
-        List<ProductRequestDto> productDtoList = new ArrayList<>();
-
-        for(Product product : productList) {
-            ProductRequestDto productDto = ProductRequestDto.builder()
-                    .pid(product.getPid())
-                    .name(product.getName())
-                    .product_image(product.getProduct_image())
-                    .createdAt(product.getCreatedAt())
-                    .modifiedAt(product.getModifiedAt())
-                    .build();
-           productDtoList.add(productDto);
-        }
-        return productDtoList;
-
-    }
-
-
 }

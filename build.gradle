@@ -31,7 +31,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
-
+    //Bootstrap
+    runtimeOnly 'org.webjars:bootstrap:4.5.0'
 
 }
 
