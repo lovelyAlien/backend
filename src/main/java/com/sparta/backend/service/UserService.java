@@ -2,7 +2,6 @@ package com.sparta.backend.service;
 
 import com.sparta.backend.dto.SignupRequestDto;
 import com.sparta.backend.model.User;
-import com.sparta.backend.model.UserRole;
 import com.sparta.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +13,7 @@ import java.util.Optional;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private static final String ADMIN_TOKEN = "AAABnv/xRVklrnYxKZ0aHgTBcXukeZygoC";
+
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -33,17 +32,10 @@ public class UserService {
 
         // 패스워드 인코딩
         String password = passwordEncoder.encode(requestDto.getPassword());
-        String email = requestDto.getEmail();
-        // 사용자 ROLE 확인
-        UserRole role = UserRole.USER;
-        if (requestDto.isAdmin()) {
-            if (!requestDto.getAdminToken().equals(ADMIN_TOKEN)) {
-                throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
-            }
-            role = UserRole.ADMIN;
-        }
 
-        User user = new User(username, password, email, role);
+        // 사용자 ROLE 확인
+
+        User user = new User(username, password);
         userRepository.save(user);
     }
 }

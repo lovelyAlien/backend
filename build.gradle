@@ -36,7 +36,7 @@ dependencies {
     // 스프링 시큐리티
     implementation 'org.springframework.boot:spring-boot-starter-security'
     // Thymeleaf (뷰 템플릿 엔진)
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
 
 }
 
