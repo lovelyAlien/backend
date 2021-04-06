@@ -18,6 +18,7 @@ public class ProductRestController {
 
     @GetMapping("/")
     public List<Product> getProducts() {
+
         return productRepository.findAllByOrderByModifiedAtDesc();
     }
 
