@@ -1,50 +1,58 @@
 package com.sparta.backend.security;
 
+import com.sparta.backend.config.JwtAuthenticationFilter;
+import com.sparta.backend.config.JwtTokenProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    private final JwtTokenProvider jwtTokenProvider;
+
+    // authenticationManager를 Bean 등록합니다.
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Bean
     public BCryptPasswordEncoder encodePassword() {
         return new BCryptPasswordEncoder();
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+        http.csrf().disable(); // csrf 보안 토큰 disable처리.
         http.headers().frameOptions().disable();
+        // 토큰 기반 인증이므로 세션 역시 사용하지 않습니다.
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.authorizeRequests()
-                // image 폴더를 login 없이 허용
-                .antMatchers("/images/**").permitAll()
-                // css 폴더를 login 없이 허용
-                .antMatchers("/css/**").permitAll()
-                // 회원 관리 URL 전부를 login 없이 허용
-                .antMatchers("/user/**").permitAll()
-                // h2-console URL 을 login 없이 허용
+        http
+                // 요청에 대한 사용권한 체크
+                .authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasRole("USER")
                 .antMatchers("/h2-console/**").permitAll()
-                //모든 URL 을 login 없이 허용
-                .antMatchers("/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
                 .and()
-                .formLogin()
-                .loginPage("/user/login") //로그인이 필요할 때 필요한 페이지 위치를 지정
-                .failureUrl("/user/login/error") // 로그인이 실패 시 해당 페이지 위치를 요청
-                .defaultSuccessUrl("/")
-                .permitAll()
-                .and()
-                .logout()
+                // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+                        UsernamePasswordAuthenticationFilter.class);
 
-                .logoutUrl("/user/logout")
-
-                .permitAll();
 
 
     }

@@ -31,6 +31,7 @@ public class ProductRestController {
         return productRepository.findById(pid).orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
     }
 
+
     @GetMapping("/api/products")
     public List <ProductRequestDto> search(@RequestParam(value="q",required = false, defaultValue = "") String keyword){
         List<ProductRequestDto> productRequestDtoList= productService.searchProducts(keyword);

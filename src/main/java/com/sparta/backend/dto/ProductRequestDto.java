@@ -42,4 +42,7 @@ public class ProductRequestDto {
     private Integer qty;
 
     private String keyword;
+
+
+
 }

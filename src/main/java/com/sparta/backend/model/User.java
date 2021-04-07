@@ -1,19 +1,26 @@
 package com.sparta.backend.model;
 
-import com.sparta.backend.dto.UserRequestDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Setter
+
 @Getter // get 함수를 일괄적으로 만들어줍니다.
 @NoArgsConstructor // 기본 생성자를 만들어줍니다.
 @Entity // DB 테이블 역할을 합니다.
-public class User extends Timestamped {
+public class User extends Timestamped{
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+
+    }
     // ID가 자동으로 생성 및 증가합니다.
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -26,19 +33,17 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String passwordNen;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
-    @Column(nullable = false)
-    private String passwordConfirm;
-
-    public User(UserRequestDto userRequestDto) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //암호화
-
-        this.username = userRequestDto.getUsername();
-        this.password = encoder.encode(userRequestDto.getPassword());
-        this.passwordNen = userRequestDto.getPasswordNen();
-        this.passwordConfirm = userRequestDto.getPasswordConfirm();
-
+    @Builder
+    public User(String username, String password, Long id, List<String> roles){
+        this.username=username;
+        this.password=password;
+        this.id = id;
+        this.roles=roles;
     }
+
+
+
 }
