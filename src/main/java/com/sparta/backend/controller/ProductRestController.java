@@ -1,4 +1,5 @@
 package com.sparta.backend.controller;
+import com.sparta.backend.dto.ProductRequestDto;
 import com.sparta.backend.model.Product;
 import com.sparta.backend.repository.ProductRepository;
 import com.sparta.backend.service.ProductService;
@@ -29,4 +30,12 @@ public class ProductRestController {
     public Product getDetail(@PathVariable Long pid) {
         return productRepository.findById(pid).orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
     }
+
+    @GetMapping("/api/products")
+    public List <ProductRequestDto> search(@RequestParam(value="q",required = false, defaultValue = "") String keyword){
+        List<ProductRequestDto> productRequestDtoList= productService.searchProducts(keyword);
+        return productRequestDtoList;
+    }
+
+
 }

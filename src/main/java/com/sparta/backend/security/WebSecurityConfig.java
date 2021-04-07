@@ -30,7 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").permitAll()
                 // h2-console URL 을 login 없이 허용
                 .antMatchers("/h2-console/**").permitAll()
-
+                //모든 URL 을 login 없이 허용
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

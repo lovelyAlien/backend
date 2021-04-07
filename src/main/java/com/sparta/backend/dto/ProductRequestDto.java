@@ -2,9 +2,11 @@ package com.sparta.backend.dto;
 
 
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class ProductRequestDto {
 
     private String name;
