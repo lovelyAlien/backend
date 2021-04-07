@@ -1,8 +1,10 @@
 package com.sparta.backend.model;
 
+import com.sparta.backend.dto.UserRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
@@ -12,11 +14,6 @@ import javax.persistence.*;
 @Entity // DB 테이블 역할을 합니다.
 public class User extends Timestamped {
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-
-    }
     // ID가 자동으로 생성 및 증가합니다.
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -29,5 +26,19 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String passwordNen;
 
+    @Column(nullable = false)
+    private String passwordConfirm;
+
+    public User(UserRequestDto userRequestDto) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //암호화
+
+        this.username = userRequestDto.getUsername();
+        this.password = encoder.encode(userRequestDto.getPassword());
+        this.passwordNen = userRequestDto.getPasswordNen();
+        this.passwordConfirm = userRequestDto.getPasswordConfirm();
+
+    }
 }
