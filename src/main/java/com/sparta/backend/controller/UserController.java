@@ -1,13 +1,16 @@
 package com.sparta.backend.controller;
 
 import com.sparta.backend.config.JwtTokenProvider;
+import com.sparta.backend.dto.ProductRequestDto;
 import com.sparta.backend.dto.SignupRequestDto;
+import com.sparta.backend.model.Product;
 import com.sparta.backend.model.User;
 import com.sparta.backend.repository.UserRepository;
 import com.sparta.backend.security.UserDetailsImpl;
 import com.sparta.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,6 +71,8 @@ public class UserController {
                 .username(user.get("username"))
                 .password(passwordEncoder.encode(user.get("password")))
                 .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                .build()).getId();
+                .build()).getUid();
     }
+
+
 }

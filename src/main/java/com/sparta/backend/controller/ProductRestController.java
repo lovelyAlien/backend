@@ -2,8 +2,10 @@ package com.sparta.backend.controller;
 import com.sparta.backend.dto.ProductRequestDto;
 import com.sparta.backend.model.Product;
 import com.sparta.backend.repository.ProductRepository;
+import com.sparta.backend.security.UserDetailsImpl;
 import com.sparta.backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -37,6 +39,11 @@ public class ProductRestController {
         List<ProductRequestDto> productRequestDtoList= productService.searchProducts(keyword);
         return productRequestDtoList;
     }
+
+
+
+
+
 
 
 }

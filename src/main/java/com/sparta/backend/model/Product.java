@@ -1,4 +1,6 @@
 package com.sparta.backend.model;
+import com.sparta.backend.dto.ProductRequestDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -7,12 +9,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class Product extends Timestamped{
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long pid;
 
-//    @Column(nullable = false)
-//    private Long uid;
+    @Column(nullable = false)
+    private Long uid;
 
     @Column(nullable = false)
     private String name;
@@ -64,6 +67,7 @@ public class Product extends Timestamped{
 
     @Column(nullable = false)
     private String keyword;
+
 
 
 }

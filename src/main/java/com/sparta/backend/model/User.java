@@ -24,7 +24,7 @@ public class User extends Timestamped{
     // ID가 자동으로 생성 및 증가합니다.
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private Long id;
+    private Long uid;
 
     // 반드시 값을 가지도록 합니다.
     @Column(nullable = false)
@@ -37,10 +37,10 @@ public class User extends Timestamped{
     private List<String> roles = new ArrayList<>();
 
     @Builder
-    public User(String username, String password, Long id, List<String> roles){
+    public User(String username, String password, Long uid, List<String> roles){
         this.username=username;
         this.password=password;
-        this.id = id;
+        this.uid = uid;
         this.roles=roles;
     }
 
