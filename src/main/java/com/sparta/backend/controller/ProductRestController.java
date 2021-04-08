@@ -43,11 +43,11 @@ public class ProductRestController {
 
     // 신규 상품 등록
     @PostMapping("/api/products/new")
-    public Product create(@RequestBody ProductRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        로그인 되어 있는 ID
-        Long uid = userDetails.getUser().getUid();
+    public Product create(@RequestBody ProductRequestDto requestDto) {
 
-        Product product = new Product(requestDto, uid);
+
+
+        Product product = new Product(requestDto);
         // 응답 보내기
         return productRepository.save(product);
     }

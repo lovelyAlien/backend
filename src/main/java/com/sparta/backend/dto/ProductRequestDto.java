@@ -9,9 +9,6 @@ import lombok.Getter;
 @Builder
 public class ProductRequestDto {
 
-
-    private Long uid;
-
     private String name;
 
     private Integer price;
