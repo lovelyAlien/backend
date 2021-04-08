@@ -58,12 +58,4 @@ public class ProductService {
                 .build();
     }
 
-    @Transactional // 메소드 동작이 SQL 쿼리문임을 선언합니다.
-    public Product createProduct(ProductRequestDto requestDto, Long userId ) {
-        // 요청받은 DTO 로 DB에 저장할 객체 만들기
-        Product product = new Product(requestDto, userId);
-        productRepository.save(product);
-        return product;
-    }
-
 }

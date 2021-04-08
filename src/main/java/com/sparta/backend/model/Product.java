@@ -15,7 +15,7 @@ public class Product extends Timestamped{
     private Long pid;
 
     @Column(nullable = false)
-    private Long userId;
+    private Long uid;
 
     @Column(nullable = false)
     private String name;
@@ -68,20 +68,27 @@ public class Product extends Timestamped{
     @Column(nullable = false)
     private String keyword;
 
-    public Product(ProductRequestDto requestDto, Long userId){
-
-        this.userId = userId;
+    public Product(ProductRequestDto requestDto) {
+        this.uid = requestDto.getUid();
         this.name = requestDto.getName();
         this.price = requestDto.getPrice();
-        this.product_image = requestDto.getProduct_image();
-        this.description = requestDto.getDescription();
-        this.qty = requestDto.getQty();
-        this.tradable = requestDto.getTradable();
-        this.location = requestDto.getLocation();
-        this.used = requestDto.getUsed();
-
-
+        this.num_faved= requestDto.getNum_faved();
+        this.num_item_view=requestDto.getNum_item_view();
+        this.num_comment=requestDto.getNum_comment();
+        this.user_name=requestDto.getUser_name();
+        this.update_time=requestDto.getUpdate_time();
+        this.free_shipping=requestDto.getFree_shipping();
+        this.profile_image=requestDto.getProfile_image();
+        this.product_image=requestDto.getProduct_image();
+        this.description=requestDto.getDescription();
+        this.description_for_detail=requestDto.getDescription_for_detail();
+        this.tradable=requestDto.getTradable();
+        this.used=requestDto.getUsed();
+        this.location=requestDto.getLocation();
+        this.qty= requestDto.getQty();
+        this.keyword=requestDto.getKeyword();
     }
+
 
 
 }
