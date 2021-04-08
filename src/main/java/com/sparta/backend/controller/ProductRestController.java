@@ -40,10 +40,16 @@ public class ProductRestController {
         return productRequestDtoList;
     }
 
+    // 신규 상품 등록
+    @PostMapping("/api/products")
+    public Product createProduct(@RequestBody ProductRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        // 로그인 되어 있는 ID
+        Long userId = userDetails.getUser().getUid();
 
-
-
-
+        Product product = productService.createProduct(requestDto, userId);
+        // 응답 보내기
+        return product;
+    }
 
 
 }

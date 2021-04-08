@@ -15,7 +15,7 @@ public class Product extends Timestamped{
     private Long pid;
 
     @Column(nullable = false)
-    private Long uid;
+    private Long userId;
 
     @Column(nullable = false)
     private String name;
@@ -68,6 +68,20 @@ public class Product extends Timestamped{
     @Column(nullable = false)
     private String keyword;
 
+    public Product(ProductRequestDto requestDto, Long userId){
+
+        this.userId = userId;
+        this.name = requestDto.getName();
+        this.price = requestDto.getPrice();
+        this.product_image = requestDto.getProduct_image();
+        this.description = requestDto.getDescription();
+        this.qty = requestDto.getQty();
+        this.tradable = requestDto.getTradable();
+        this.location = requestDto.getLocation();
+        this.used = requestDto.getUsed();
+
+
+    }
 
 
 }
