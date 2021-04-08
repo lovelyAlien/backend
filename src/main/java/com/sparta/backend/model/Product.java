@@ -68,8 +68,8 @@ public class Product extends Timestamped{
     @Column(nullable = false)
     private String keyword;
 
-    public Product(ProductRequestDto requestDto) {
-        this.uid = requestDto.getUid();
+    public Product(ProductRequestDto requestDto , Long uid) {
+        this.uid = uid;
         this.name = requestDto.getName();
         this.price = requestDto.getPrice();
         this.num_faved= requestDto.getNum_faved();
